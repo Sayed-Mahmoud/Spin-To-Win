@@ -2,7 +2,7 @@
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:local="clr-namespace:OffbeatTask"
-             StartupUri="MainWindow.xaml">
+             StartupUri="MyMainWindow.xaml">
     <Application.Resources>
          
     </Application.Resources>
