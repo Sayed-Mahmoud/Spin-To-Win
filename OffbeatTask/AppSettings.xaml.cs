@@ -36,12 +36,13 @@ namespace OffbeatTask
             MyGrid.CurrentCellChanged += MyGrid_CurrentCellChanged;
         }
 
+
         private void MyGrid_CurrentCellChanged(object sender, EventArgs e)
         {
             if (HasError())
-                DownBtn.IsEnabled = UpBtn.IsEnabled = false;
+                SaveBtn.IsEnabled = DownBtn.IsEnabled = UpBtn.IsEnabled = false;
             else
-                DownBtn.IsEnabled = UpBtn.IsEnabled = true;
+                SaveBtn.IsEnabled = DownBtn.IsEnabled = UpBtn.IsEnabled = true;
 
             if (!HasFocus(MyGrid, true))
                 return;
@@ -156,6 +157,10 @@ namespace OffbeatTask
             if (e.Key == Key.Escape)
             {
                 this.Close();
+            }
+            else if (e.Key == Key.S && (e.KeyboardDevice.IsKeyDown(Key.LeftCtrl) || e.KeyboardDevice.IsKeyDown(Key.RightCtrl)))
+            {
+                SaveBtn_Click(sender, new RoutedEventArgs());
             }
         }
     }

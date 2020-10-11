@@ -90,6 +90,26 @@ namespace OffbeatTask
             }
         }
 
+        public Reward GetRwardByChance(List<Reward> items)
+        {
+            int poolSize = 0;
+            for (int i = 0; i < items.Count; i++)
+            {
+                poolSize += items[i].Quantity;
+            }
+
+            int randomNumber = random.Next(0, poolSize) + 1;
+
+            int accumulatedProbability = 0;
+            for (int i = 0; i < items.Count; i++)
+            {
+                accumulatedProbability += items[i].Quantity;
+                if (randomNumber <= accumulatedProbability && items[i].Quantity > 0)
+                    return items[i];
+            }
+            return GetRwardByChance(items);
+        }
+
         public Reward GetReward(int StopPoint)
         {
             var rewards = context.Rewards.OrderBy(x => x.Posetion).ToArray();
@@ -172,6 +192,7 @@ namespace OffbeatTask
                     }
             }
         }
+
         public void SetRewards()
         {
             var rewards = context.Rewards.OrderBy(x => x.Posetion).ToArray();
@@ -186,26 +207,6 @@ namespace OffbeatTask
             ImageReward7.Source = new BitmapImage(new Uri(FolderName + rewards[6].ItemName + ImageFormat, UriKind.RelativeOrAbsolute));
             ImageReward8.Source = new BitmapImage(new Uri(FolderName + rewards[7].ItemName + ImageFormat, UriKind.RelativeOrAbsolute));
             this.UpdateLayout();
-        }
-
-        public Reward GetRwardByChance(List<Reward> items)
-        {
-            int poolSize = 0;
-            for (int i = 0; i < items.Count; i++)
-            {
-                poolSize += items[i].Quantity;
-            }
-
-            int randomNumber = random.Next(0, poolSize) + 1;
-
-            int accumulatedProbability = 0;
-            for (int i = 0; i < items.Count; i++)
-            {
-                accumulatedProbability += items[i].Quantity;
-                if (randomNumber <= accumulatedProbability && items[i].Quantity > 0)
-                    return items[i];
-            }
-            return GetRwardByChance(items);
         }
 
         private void StartBtn_Click(object sender, RoutedEventArgs e)
